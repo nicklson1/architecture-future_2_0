@@ -1,0 +1,42 @@
+
+@startuml C4_Container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(businessUser, "Бизнес-пользователь", "Работает с аналитикой")
+
+System_Boundary(system, "Будущее 2.0") {
+
+    Container(portal, "Витрина данных", "Web-приложение", "Пользовательский портал для создания отчётов")
+    Container(authService, "Сервис авторизации", "IAM / RBAC", "Контроль доступа к отчётам")
+    Container(dataAggregator, "Агрегатор данных", "Python ETL", "Собирает и обогащает данные из доменов")
+    Container(finDataStore, "Финтех-хранилище", "PostgreSQL", "Финансовые данные")
+    Container(medDataStore, "Медицинское хранилище", "Parquet", "Обезличенные медицинские данные")
+    Container(legacyDWH, "Legacy DWH", "SQL Server 2008", "Историческое хранилище, выводится из эксплуатации")
+    Container(kafka, "Kafka Broker", "Apache Kafka", "Передача событий между системами")
+    Container(integration, "Integration layer", "Custom сервис", "Оркестрация, маршрутизация, трансформация данных")
+    Container(apiGateway, "API Gateway", "NGINX", "Внешняя точка входа в систему")
+
+}
+
+System_Ext(biSystem, "BI-система")
+System_Ext(aiService, "ИИ-сервисы")
+System_Ext(fintechApp, "Финтех-приложения")
+
+Rel(businessUser, portal, "Строит отчёты")
+Rel(portal, authService, "Проходит авторизацию")
+Rel(portal, dataAggregator, "Запрашивает витрины")
+Rel(dataAggregator, finDataStore, "Читает фин. данные")
+Rel(dataAggregator, medDataStore, "Читает мед. данные")
+Rel(dataAggregator, legacyDWH, "Читает исторические данные")
+Rel(dataAggregator, kafka, "Получает события")
+Rel(apiGateway, integration, "Передаёт запросы")
+Rel(integration, kafka, "Публикует и потребляет события")
+Rel(aiService, integration, "Взаимодействует через события")
+Rel(fintechApp, apiGateway, "Запрашивает доступ к данным")
+Rel(biSystem, dataAggregator, "Получает агрегированные витрины")
+
+@enduml
+
+Rel(integration, legacyDWH, "Временный прямой доступ к данным DWH")

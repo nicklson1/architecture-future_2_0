@@ -1,0 +1,51 @@
+
+@startuml Tech_Roadmap
+title Технологический роадмап компании "Будущее 2.0"
+
+skinparam rectangle {
+  BackgroundColor<<phase>> #FDF6E3
+  BorderColor Black
+  FontStyle bold
+}
+
+skinparam note {
+  BackgroundColor #F6F6F6
+}
+
+rectangle "Этап 1:\nАрхитектурное проектирование\n(0–3 мес)" <<phase>> as P1
+note right of P1
+  ✔ Формирование целевой архитектуры
+  ✔ Разделение на домены
+  👥 Архитекторы
+  🧰 draw.io, PlantUML
+end note
+
+rectangle "Этап 2:\nДоменные хранилища\n(3–6 мес)" <<phase>> as P2
+note right of P2
+  ✔ Создание Fintech/Med хранилищ
+  ✔ Внедрение PostgreSQL/ClickHouse
+  👥 Data Team
+  🧰 DDL, dbt
+end note
+
+rectangle "Этап 3:\nИнтеграция и витрина\n(6–9 мес)" <<phase>> as P3
+note right of P3
+  ✔ Запуск ETL пайплайнов
+  ✔ Прототип BI-витрины
+  👥 Data+BI Team
+  🧰 Power BI, Python, Kafka
+end note
+
+rectangle "Этап 4:\nПереход на новую платформу\n(9–12 мес)" <<phase>> as P4
+note right of P4
+  ✔ Уход от логики в DWH
+  ✔ Внедрение API и событийной шины
+  👥 Dev Team
+  🧰 REST, Kafka, Auth
+end note
+
+P1 --> P2
+P2 --> P3
+P3 --> P4
+
+@enduml

@@ -1,0 +1,27 @@
+
+@startuml
+title Data Flow Diagram — Потоки данных между доменами
+
+actor Partner as "Внешний партнёр"
+actor Regulator as "Регулятор"
+
+frame "Будущее 2.0 (граница системы)" {
+  rectangle "Финтех-домен" as Fintech
+  rectangle "Медицинский домен" as Medical
+  rectangle "ИИ-домен" as AI
+  rectangle "IoT-домен" as IoT
+  rectangle "Аналитический домен\n(Витрина данных)" as Analytics
+}
+
+' Потоки данных между доменами
+Fintech --> Analytics : Транзакции, кредиты
+Medical --> Analytics : Мед. данные (обезличенные)
+IoT --> Analytics : Телеметрия
+AI --> Analytics : Рекомендации
+AI --> Medical : Результаты анализа
+
+' Взаимодействие с внешними субъектами
+Partner --> Fintech : API-запросы
+Analytics --> Regulator : Отчётность
+
+@enduml
