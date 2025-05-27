@@ -10,7 +10,7 @@ System_Boundary(system, "Будущее 2.0") {
 
     Container(portal, "Витрина данных", "Web-приложение", "Пользовательский портал для создания отчётов")
     Container(authService, "Сервис авторизации", "IAM / RBAC", "Контроль доступа к отчётам")
-    Container(dataAggregator, "Агрегатор данных", "Python ETL", "Собирает и обогащает данные из доменов")
+    Container(dataAggregator, "Агрегатор данных", "Airflow", "Собирает и обогащает данные из доменов")
     Container(finDataStore, "Финтех-хранилище", "PostgreSQL", "Финансовые данные")
     Container(medDataStore, "Медицинское хранилище", "Parquet", "Обезличенные медицинские данные")
     Container(legacyDWH, "Legacy DWH", "SQL Server 2008", "Историческое хранилище, выводится из эксплуатации")
